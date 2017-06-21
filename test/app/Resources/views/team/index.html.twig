@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Liste des équipes</h1>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Anneecreation</th>
+                <th>Entraineur</th>
+                <th>Couleurs</th>
+                <th>Pays</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for team in teams %}
+            <tr>
+                <td><a href="{{ path('admin_team_show', { 'id': team.id }) }}">{{ team.id }}</a></td>
+                <td>{{ team.nom }}</td>
+                <td>{{ team.anneeCreation }}</td>
+                <td>{{ team.entraineur }}</td>
+                <td>{{ team.couleurs }}</td>
+                    <td>
+                    {% if team.country %} <!--si ça renvoie null on n'exucute pas l'instruction suivante, sinon je ne fais rien-->
+                    {{ team.country.nom }}
+                    {% else %}
+                        <span>Pas de pays</span>
+                    {% endif %}
+                    </td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('admin_team_show', { 'id': team.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('admin_team_edit', { 'id': team.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_team_new') }}">Create a new team</a>
+        </li>
+    </ul>
+{% endblock %}

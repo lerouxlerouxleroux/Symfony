@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{# commentaire twig  #}
+
+{% block body %}
+    <h1>{{title}}</h1>
+    <p>{{message}}</p>
+    <p>{{joueur1.nom}} est âgé de {{joueur1.age}} ans</p>
+   
+    <div id="popup">Popup</div>
+    <button id="btnTest">Test</button>
+
+    <ul>
+        {% for joueur in joueurs %}
+            <li>
+                {{joueur.nom}}
+                {% if joueur.age > 29 %}
+                    <span> (trentenaire)</span>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+
+    <table class="table table-striped">
+        <tr>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Age</th>
+            <th>Numéro</th>
+            <th>Equipe</th>
+        </tr>
+        {% for player in players %}
+            <tr>
+                <td>
+                    <a href="player/{{player.id}}">{{player.nom}}</a>
+                </td>
+                <td>{{player.prenom}}</td>
+                <td>
+                    {{player.age}}
+                    {% if player.age > 29 and player.age < 40 %}
+                    <span> (trentenaire)</span>
+                    {% endif %}
+                </td>
+                <td>{{player.numMaillot}}</td><td>
+                {% if player.equipe %}
+                     {{ player.equipe.nom }}
+                {% else %}
+                     Sans equipe
+                {%  endif %}
+
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
+
+
+  {% block javascripts %}
+
+<script src="{{ asset('js/zepto.min.js') }}"></script>
+<script src="{{ asset('js/fx.js') }}"></script>
+<script src="{{ asset('js/app.js') }}"></script>
+
+  {% endblock %}
